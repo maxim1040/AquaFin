@@ -177,7 +177,6 @@
                         totalRain += historicalData[year][month] || 0;
                     }
                     let threshold = seasonThresholds[season];
-                    if (year >= 2023) threshold = 280; // Lagere drempel vanaf 2023
                     if (totalRain > threshold) {
                         risks.push(`Overstromingsrisico in ${year} tijdens ${season} (${totalRain} mm > ${threshold} mm)`);
                     }
@@ -212,7 +211,7 @@
                 for (let month of months) {
                     totalRain += futureData[month];
                 }
-                let threshold = 280; // Drempel voor 2025
+                let threshold = seasonThresholds[season];
                 if (totalRain > threshold) {
                     resultDiv.innerHTML += `<p class="warning">WAARSCHUWING: Overstromingsrisico in 2025 tijdens ${season} (${totalRain} mm > ${threshold} mm)</p>`;
                 } else {
