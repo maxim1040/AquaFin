@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overstromingsrisico Analyse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+        .input-section {
+            margin: 20px 0;
+        }
+        input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Historische Neerslagdata en Overstromingsrisico</h2>
+    <table>
+        <tr>
+            <th>Jaar</th>
+            <th>Jan</th>
+            <th>Feb</th>
+            <th>Mar</th>
+            <th>Apr</th>
+            <th>Mei</th>
+            <th>Jun</th>
+            <th>Jul</th>
+            <th>Aug</th>
+            <th>Sep</th>
+            <th>Okt</th>
+            <th>Nov</th>
+            <th>Dec</th>
+        </tr>
+        <tr><td>2005</td><td>67</td><td>54</td><td>73</td><td>68</td><td>74</td><td>79</td><td>98</td><td>89</td><td>68</td><td>98</td><td>98</td><td>108</td></tr>
+        <tr><td>2006</td><td>66</td><td>45</td><td>61</td><td>57</td><td>70</td><td>82</td><td>85</td><td>78</td><td>77</td><td>94</td><td>100</td><td>103</td></tr>
+        <tr><td>2007</td><td>62</td><td>56</td><td>64</td><td>62</td><td>72</td><td>79</td><td>87</td><td>94</td><td>70</td><td>90</td><td>104</td><td>104</td></tr>
+        <tr><td>2008</td><td>66</td><td>45</td><td>63</td><td>61</td><td>79</td><td>81</td><td>89</td><td>83</td><td>63</td><td>91</td><td>98</td><td>115</td></tr>
+        <tr><td>2009</td><td>67</td><td>46</td><td>72</td><td>58</td><td>72</td><td>83</td><td>95</td><td>90</td><td>66</td><td>93</td><td>102</td><td>115</td></tr>
+        <tr><td>2010</td><td>63</td><td>54</td><td>64</td><td>54</td><td>79</td><td>87</td><td>90</td><td>90</td><td>72</td><td>92</td><td>102</td><td>118</td></tr>
+        <tr><td>2011</td><td>65</td><td>63</td><td>57</td><td>64</td><td>75</td><td>79</td><td>90</td><td>75</td><td>69</td><td>97</td><td>107</td><td>107</td></tr>
+        <tr><td>2012</td><td>61</td><td>52</td><td>75</td><td>62</td><td>72</td><td>83</td><td>90</td><td>90</td><td>66</td><td>93</td><td>98</td><td>103</td></tr>
+        <tr><td>2013</td><td>66</td><td>56</td><td>70</td><td>59</td><td>68</td><td>78</td><td>88</td><td>91</td><td>69</td><td>97</td><td>109</td><td>111</td></tr>
+        <tr><td>2014</td><td>66</td><td>55</td><td>60</td><td>60</td><td>75</td><td>92</td><td>89</td><td>87</td><td>70</td><td>89</td><td>106</td><td>114</td></tr>
+        <tr><td>2015</td><td>69</td><td>50</td><td>77</td><td>53</td><td>78</td><td>91</td><td>85</td><td>82</td><td>70</td><td>92</td><td>92</td><td>110</td></tr>
+        <tr><td>2016</td><td>60</td><td>57</td><td>65</td><td>68</td><td>71</td><td>78</td><td>94</td><td>79</td><td>72</td><td>102</td><td>111</td><td>105</td></tr>
+        <tr><td>2017</td><td>66</td><td>59</td><td>64</td><td>53</td><td>78</td><td>81</td><td>91</td><td>87</td><td>66</td><td>101</td><td>106</td><td>106</td></tr>
+        <tr><td>2018</td><td>74</td><td>57</td><td>64</td><td>63</td><td>70</td><td>84</td><td>76</td><td>81</td><td>75</td><td>97</td><td>104</td><td>119</td></tr>
+        <tr><td>2019</td><td>64</td><td>51</td><td>66</td><td>56</td><td>75</td><td>82</td><td>91</td><td>89</td><td>70</td><td>102</td><td>99</td><td>124</td></tr>
+        <tr><td>2020</td><td>68</td><td>51</td><td>65</td><td>62</td><td>74</td><td>84</td><td>92</td><td>85</td><td>66</td><td>87</td><td>98</td><td>114</td></tr>
+        <tr><td>2021</td><td>66</td><td>49</td><td>71</td><td>62</td><td>71</td><td>81</td><td>90</td><td>79</td><td>72</td><td>96</td><td>105</td><td>115</td></tr>
+        <tr><td>2022</td><td>58</td><td>50</td><td>73</td><td>63</td><td>78</td><td>99</td><td>93</td><td>91</td><td>75</td><td>98</td><td>98</td><td>114</td></tr>
+        <tr><td>2023</td><td>61</td><td>54</td><td>68</td><td>60</td><td>87</td><td>71</td><td>93</td><td>77</td><td>68</td><td>100</td><td>100</td><td>105</td></tr>
+        <tr><td>2024</td><td>61</td><td>58</td><td>66</td><td>61</td><td>75</td><td>77</td><td>101</td><td>88</td><td>60</td><td>96</td><td>97</td><td>114</td></tr>
+    </table>
+
+    <div class="input-section">
+        <h3>Voer toekomstige regendata in voor 2025 (mm)</h3>
+        <input type="number" id="jan" placeholder="Jan" min="0">
+        <input type="number" id="feb" placeholder="Feb" min="0">
+        <input type="number" id="mar" placeholder="Mar" min="0">
+        <input type="number" id="apr" placeholder="Apr" min="0">
+        <input type="number" id="mei" placeholder="Mei" min="0">
+        <input type="number" id="jun" placeholder="Jun" min="0">
+        <input type="number" id="jul" placeholder="Jul" min="0">
+        <input type="number" id="aug" placeholder="Aug" min="0">
+        <input type="number" id="sep" placeholder="Sep" min="0">
+        <input type="number" id="okt" placeholder="Okt" min="0">
+        <input type="number" id="nov" placeholder="Nov" min="0">
+        <input type="number" id="dec" placeholder="Dec" min="0">
+        <button onclick="predictFloodRisk()">Analyseer</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        // Historische data als object
+        const historicalData = {
+            2005: {Jan: 67, Feb: 54, Mar: 73, Apr: 68, Mei: 74, Jun: 79, Jul: 98, Aug: 89, Sep: 68, Okt: 98, Nov: 98, Dec: 108},
+            2006: {Jan: 66, Feb: 45, Mar: 61, Apr: 57, Mei: 70, Jun: 82, Jul: 85, Aug: 78, Sep: 77, Okt: 94, Nov: 100, Dec: 103},
+            2007: {Jan: 62, Feb: 56, Mar: 64, Apr: 62, Mei: 72, Jun: 79, Jul: 87, Aug: 94, Sep: 70, Okt: 90, Nov: 104, Dec: 104},
+            2008: {Jan: 66, Feb: 45, Mar: 63, Apr: 61, Mei: 79, Jun: 81, Jul: 89, Aug: 83, Sep: 63, Okt: 91, Nov: 98, Dec: 115},
+            2009: {Jan: 67, Feb: 46, Mar: 72, Apr: 58, Mei: 72, Jun: 83, Jul: 95, Aug: 90, Sep: 66, Okt: 93, Nov: 102, Dec: 115},
+            2010: {Jan: 63, Feb: 54, Mar: 64, Apr: 54, Mei: 79, Jun: 87, Jul: 90, Aug: 90, Sep: 72, Okt: 92, Nov: 102, Dec: 118},
+            2011: {Jan: 65, Feb: 63, Mar: 57, Apr: 64, Mei: 75, Jun: 79, Jul: 90, Aug: 75, Sep: 69, Okt: 97, Nov: 107, Dec: 107},
+            2012: {Jan: 61, Feb: 52, Mar: 75, Apr: 62, Mei: 72, Jun: 83, Jul: 90, Aug: 90, Sep: 66, Okt: 93, Nov: 98, Dec: 103},
+            2013: {Jan: 66, Feb: 56, Mar: 70, Apr: 59, Mei: 68, Jun: 78, Jul: 88, Aug: 91, Sep: 69, Okt: 97, Nov: 109, Dec: 111},
+            2014: {Jan: 66, Feb: 55, Mar: 60, Apr: 60, Mei: 75, Jun: 92, Jul: 89, Aug: 87, Sep: 70, Okt: 89, Nov: 106, Dec: 114},
+            2015: {Jan: 69, Feb: 50, Mar: 77, Apr: 53, Mei: 78, Jun: 91, Jul: 85, Aug: 82, Sep: 70, Okt: 92, Nov: 92, Dec: 110},
+            2016: {Jan: 60, Feb: 57, Mar: 65, Apr: 68, Mei: 71, Jun: 78, Jul: 94, Aug: 79, Sep: 72, Okt: 102, Nov: 111, Dec: 105},
+            2017: {Jan: 66, Feb: 59, Mar: 64, Apr: 53, Mei: 78, Jun: 81, Jul: 91, Aug: 87, Sep: 66, Okt: 101, Nov: 106, Dec: 106},
+            2018: {Jan: 74, Feb: 57, Mar: 64, Apr: 63, Mei: 70, Jun: 84, Jul: 76, Aug: 81, Sep: 75, Okt: 97, Nov: 104, Dec: 119},
+            2019: {Jan: 64, Feb: 51, Mar: 66, Apr: 56, Mei: 75, Jun: 82, Jul: 91, Aug: 89, Sep: 70, Okt: 102, Nov: 99, Dec: 124},
+            2020: {Jan: 68, Feb: 51, Mar: 65, Apr: 62, Mei: 74, Jun: 84, Jul: 92, Aug: 85, Sep: 66, Okt: 87, Nov: 98, Dec: 114},
+            2021: {Jan: 66, Feb: 49, Mar: 71, Apr: 62, Mei: 71, Jun: 81, Jul: 90, Aug: 79, Sep: 72, Okt: 96, Nov: 105, Dec: 115},
+            2022: {Jan: 58, Feb: 50, Mar: 73, Apr: 63, Mei: 78, Jun: 99, Jul: 93, Aug: 91, Sep: 75, Okt: 98, Nov: 98, Dec: 114},
+            2023: {Jan: 61, Feb: 54, Mar: 68, Apr: 60, Mei: 87, Jun: 71, Jul: 93, Aug: 77, Sep: 68, Okt: 100, Nov: 100, Dec: 105},
+            2024: {Jan: 61, Feb: 58, Mar: 66, Apr: 61, Mei: 75, Jun: 77, Jul: 101, Aug: 88, Sep: 60, Okt: 96, Nov: 97, Dec: 114}
+        };
+
+        // Drempels per seizoen
+        const seasonThresholds = {
+            "Winter": 300, // Dec, Jan, Feb
+            "Lente": 250,  // Mar, Apr, Mei
+            "Zomer": 260,  // Jun, Jul, Aug
+            "Herfst": 280  // Sep, Okt, Nov
+        };
+
+        // Functie om seizoen te bepalen
+        function getSeason(month) {
+            if (["Dec", "Jan", "Feb"].includes(month)) return "Winter";
+            if (["Mar", "Apr", "Mei"].includes(month)) return "Lente";
+            if (["Jun", "Jul", "Aug"].includes(month)) return "Zomer";
+            if (["Sep", "Okt", "Nov"].includes(month)) return "Herfst";
+        }
+
+        // Functie om maanden in een seizoen te krijgen
+        function getMonthsInSeason(season) {
+            switch (season) {
+                case "Winter": return ["Dec", "Jan", "Feb"];
+                case "Lente": return ["Mar", "Apr", "Mei"];
+                case "Zomer": return ["Jun", "Jul", "Aug"];
+                case "Herfst": return ["Sep", "Okt", "Nov"];
+            }
+        }
+
+        // Analyseer historische data
+        function analyzeHistoricalData() {
+            let risks = [];
+            for (let year in historicalData) {
+                for (let season in seasonThresholds) {
+                    let totalRain = 0;
+                    let months = getMonthsInSeason(season);
+                    for (let month of months) {
+                        if (month === "Dec" && season === "Winter") {
+                            let prevYear = year - 1;
+                            if (historicalData[prevYear]) {
+                                totalRain += historicalData[prevYear].Dec || 0;
+                            }
+                        }
+                        totalRain += historicalData[year][month] || 0;
+                    }
+                    let threshold = seasonThresholds[season];
+                    if (year >= 2023) threshold = 280; // Lagere drempel vanaf 2023
+                    if (totalRain > threshold) {
+                        risks.push(`Overstromingsrisico in ${year} tijdens ${season} (${totalRain} mm > ${threshold} mm)`);
+                    }
+                }
+            }
+            return risks;
+        }
+
+        // Voorspel toekomstig risico
+        function predictFloodRisk() {
+            let futureData = {
+                Jan: parseInt(document.getElementById("jan").value) || 0,
+                Feb: parseInt(document.getElementById("feb").value) || 0,
+                Mar: parseInt(document.getElementById("mar").value) || 0,
+                Apr: parseInt(document.getElementById("apr").value) || 0,
+                Mei: parseInt(document.getElementById("mei").value) || 0,
+                Jun: parseInt(document.getElementById("jun").value) || 0,
+                Jul: parseInt(document.getElementById("jul").value) || 0,
+                Aug: parseInt(document.getElementById("aug").value) || 0,
+                Sep: parseInt(document.getElementById("sep").value) || 0,
+                Okt: parseInt(document.getElementById("okt").value) || 0,
+                Nov: parseInt(document.getElementById("nov").value) || 0,
+                Dec: parseInt(document.getElementById("dec").value) || 0
+            };
+
+            let resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "<h3>Analyse 2025:</h3>";
+
+            for (let season in seasonThresholds) {
+                let totalRain = 0;
+                let months = getMonthsInSeason(season);
+                for (let month of months) {
+                    totalRain += futureData[month];
+                }
+                let threshold = 280; // Drempel voor 2025
+                if (totalRain > threshold) {
+                    resultDiv.innerHTML += `<p class="warning">WAARSCHUWING: Overstromingsrisico in 2025 tijdens ${season} (${totalRain} mm > ${threshold} mm)</p>`;
+                } else {
+                    resultDiv.innerHTML += `<p>Geen overstromingsrisico in 2025 tijdens ${season} (${totalRain} mm ≤ ${threshold} mm)</p>`;
+                }
+            }
+
+            // Toon historische risico's
+            let historicalRisks = analyzeHistoricalData();
+            if (historicalRisks.length > 0) {
+                resultDiv.innerHTML += "<h3>Historische Risico's:</h3><ul>";
+                historicalRisks.forEach(risk => resultDiv.innerHTML += `<li>${risk}</li>`);
+                resultDiv.innerHTML += "</ul>";
+            } else {
+                resultDiv.innerHTML += "<p>Geen historische overstromingsrisico's gevonden.</p>";
+            }
+        }
+
+        // Toon historische risico's bij laden
+        window.onload = function() {
+            let historicalRisks = analyzeHistoricalData();
+            if (historicalRisks.length > 0) {
+                document.getElementById("result").innerHTML = "<h3>Historische Risico's:</h3><ul>";
+                historicalRisks.forEach(risk => document.getElementById("result").innerHTML += `<li>${risk}</li>`);
+                document.getElementById("result").innerHTML += "</ul>";
+            }
+        };
+    </script>
+</body>
+</html>
