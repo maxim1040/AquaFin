@@ -50,6 +50,7 @@ $orders = $stmt->fetchAll();
             font-family: sans-serif;
             background-color: #e8f2f9;
             padding: 20px;
+            min-height: 100vh;
         }
 
         table {

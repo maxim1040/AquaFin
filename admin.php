@@ -92,9 +92,5 @@ $materials = $stmt->fetchAll();
     <a href="dashboard.php" style="color:#007BFF; text-decoration:none;">⬅ Terug naar hoofdmenu</a>
 </p>
 
-<div class="logout" style="text-align: center; margin-top: 20px;">
-    <a href="logout.php" style="color: red;">Uitloggen</a>
-</div>
-
 </body>
 </html>

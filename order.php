@@ -1,34 +1,25 @@
 <?php
 session_start();
-require_once('config.php');
+require_once 'config.php';
+if (!isset($_SESSION['user_id'])) { http_response_code(403); exit; }
 
-if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: login.php');
-    exit;
+$data = json_decode(file_get_contents('php://input'), true);
+if (!is_array($data) || !$data) { echo 'Lege winkelmand'; exit; }
+
+$pdo->beginTransaction();
+foreach ($data as $id=>$qty){
+    $id  = intval($id); $qty=intval($qty);
+    // check voorraad
+    $cur = $pdo->prepare("SELECT quantity FROM materials WHERE id=? FOR UPDATE");
+    $cur->execute([$id]); $stock = $cur->fetchColumn();
+    if($stock===false||$stock<$qty){ $pdo->rollBack(); echo 'Niet genoeg voorraad voor ID '.$id; exit; }
+    // verlaag voorraad
+    $pdo->prepare("UPDATE materials SET quantity = quantity-? WHERE id=?")->execute([$qty,$id]);
+    // voeg order toe
+    $pdo->prepare("INSERT INTO orders (user_id, material_id, start_date, end_date, quantity)
+                   VALUES (?,?,NOW(),DATE_ADD(NOW(), INTERVAL 7 DAY),?)")
+        ->execute([$_SESSION['user_id'],$id,$qty]);
 }
-
-$userId = $_SESSION['user_id'];
-$material_id = intval($_POST['material_id']);
-$quantity = intval($_POST['quantity']);
-
-if ($quantity <= 0) {
-    die("Aantal ongeldig.");
-}
-
-$stmt = $pdo->prepare("SELECT quantity FROM materials WHERE id = ?");
-$stmt->execute([$material_id]);
-$available = $stmt->fetchColumn();
-
-if ($available === false || $available < $quantity) {
-    die("Niet genoeg voorraad.");
-}
-
-$stmt = $pdo->prepare("UPDATE materials SET quantity = quantity - ? WHERE id = ?");
-$stmt->execute([$quantity, $material_id]);
-
-$stmt = $pdo->prepare("INSERT INTO orders (user_id, material_id, start_date, end_date, quantity)
-                       VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY), ?)");
-$stmt->execute([$userId, $material_id, $quantity]);
-
-header("Location: history.php");
-exit;
+$pdo->commit();
+echo 'Bestelling geplaatst!';
+    

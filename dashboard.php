@@ -20,6 +20,7 @@ $role = $_SESSION['role'];
             margin: 0;
             padding: 0;
             background: #e8f2f9;
+            min-height: 100vh;
         }
 
         .header {
@@ -27,6 +28,7 @@ $role = $_SESSION['role'];
             color: white;
             padding: 15px;
             text-align: center;
+            position: relative; 
         }
 
         .menu {
@@ -56,12 +58,27 @@ $role = $_SESSION['role'];
         }
 
         .logout {
-            margin-top: 30px;
-            text-align: center;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            
         }
 
         .logout a {
-            color: red;
+            color: white;
+            background: #dc3545;
+            padding: 6px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .logout a:hover {
+            background: #c82333;
+        }
+
+        h1 {
+            color: white;
         }
     </style>
 </head>
@@ -70,6 +87,10 @@ $role = $_SESSION['role'];
 <div class="header">
     <h1>Welkom bij Aquafin</h1>
     <p>Hallo, <?= htmlspecialchars($role) ?> 👷</p>
+
+    <div class="logout">
+        <p><a href="logout.php">Uitloggen</a></p>
+    </div>
 </div>
 
 <div class="menu">
@@ -80,9 +101,7 @@ $role = $_SESSION['role'];
     <?php endif; ?>
 </div>
 
-<div class="logout">
-    <p><a href="logout.php">Uitloggen</a></p>
-</div>
+
 
 </body>
 </html>

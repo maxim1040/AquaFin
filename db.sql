@@ -12,6 +12,7 @@ CREATE TABLE users (
 CREATE TABLE materials (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100),
+  category VARCHAR(50),
   quantity INT
 );
 
