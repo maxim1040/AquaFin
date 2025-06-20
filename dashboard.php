@@ -98,6 +98,7 @@ $role = $_SESSION['role'];
     <a class="card" href="history.php">📜<br>Bestelgeschiedenis</a>
     <?php if ($role === 'admin'): ?>
         <a class="card" href="admin.php">🛠️<br>Materiaalbeheer</a>
+         <a class="card" href="history_grouped.php">📊 Overzicht bestellingen</a>
     <?php endif; ?>
 </div>
 

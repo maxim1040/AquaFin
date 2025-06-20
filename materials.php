@@ -158,6 +158,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 <button id="winkelmand-btn" onclick="toggleCart()">🛒</button>
 
+<p style="margin-top: 40px;">
+  <a href="dashboard.php" style="color:#00aaff; text-decoration:none;">⬅ Terug naar hoofdmenu</a>
+</p>
+
 <script>
 function toggle(id){
     const el = document.getElementById(id);
@@ -214,10 +218,30 @@ function renderCart(){
 }
 
 function submitOrder(){
-    alert('Bestelling bevestigd (functie nog te implementeren)');
-    localStorage.removeItem('cart');
-    document.getElementById('cart-overlay').style.display = 'none';
+    const cart = JSON.parse(localStorage.getItem('cart') || '{}');
+    if (Object.keys(cart).length === 0){
+        alert('Je winkelmand is leeg.'); return;
+    }
+
+    fetch('submit_order.php', {
+        method : 'POST',
+        headers: {'Content-Type':'application/json'},
+        body   : JSON.stringify(cart)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.ok){
+            alert(data.msg);
+            localStorage.removeItem('cart');
+            document.getElementById('cart-overlay').style.display = 'none';
+            location.reload();              // vernieuw voorraad
+        } else {
+            alert('Fout: ' + data.error);
+        }
+    })
+    .catch(() => alert('Netwerkfout, probeer opnieuw.'));
 }
+
 </script>
 
 </body>
