@@ -9,10 +9,25 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
+
 if (isset($_GET['delete'])) {
     $deleteId = intval($_GET['delete']);
-    $pdo->prepare("DELETE FROM orders WHERE id = ? AND user_id = ?")
-        ->execute([$deleteId, $userId]);
+
+    
+    $stmt = $pdo->prepare("SELECT material_id, quantity FROM orders WHERE id = ? AND user_id = ?");
+    $stmt->execute([$deleteId, $userId]);
+    $order = $stmt->fetch();
+
+    if ($order) {
+        
+        $pdo->prepare("UPDATE materials SET quantity = quantity + ? WHERE id = ?")
+            ->execute([$order['quantity'], $order['material_id']]);
+
+        
+        $pdo->prepare("DELETE FROM orders WHERE id = ? AND user_id = ?")
+            ->execute([$deleteId, $userId]);
+    }
+
     header("Location: history.php");
     exit;
 }
@@ -20,10 +35,23 @@ if (isset($_GET['delete'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_id'], $_POST['new_quantity'])) {
     $updateId = intval($_POST['update_id']);
     $newQty = intval($_POST['new_quantity']);
+
     if ($newQty > 0) {
-        $pdo->prepare("UPDATE orders SET quantity = ? WHERE id = ? AND user_id = ?")
-            ->execute([$newQty, $updateId, $userId]);
+        $stmt = $pdo->prepare("SELECT material_id, quantity FROM orders WHERE id = ? AND user_id = ?");
+        $stmt->execute([$updateId, $userId]);
+        $order = $stmt->fetch();
+
+        if ($order) {
+            $verschil = $order['quantity'] - $newQty;
+
+            $pdo->prepare("UPDATE materials SET quantity = quantity + ? WHERE id = ?")
+                ->execute([$verschil, $order['material_id']]);
+
+            $pdo->prepare("UPDATE orders SET quantity = ? WHERE id = ? AND user_id = ?")
+                ->execute([$newQty, $updateId, $userId]);
+        }
     }
+
     header("Location: history.php");
     exit;
 }
