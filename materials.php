@@ -123,6 +123,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 <h1>Voorraad per categorie</h1>
 
+<input type="text" id="searchInput" placeholder="🔍 Zoek materiaal..." onkeyup="filterMaterials()"
+       style="width: 400px; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: none;">
+
+
 <?php foreach($cats as $cat => $items): ?>
     <h2 onclick="toggle('<?= md5($cat) ?>')">
         <?= htmlspecialchars($cat) ?>
@@ -241,6 +245,17 @@ function submitOrder(){
     })
     .catch(() => alert('Netwerkfout, probeer opnieuw.'));
 }
+
+function filterMaterials() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const blocks = document.querySelectorAll('.material');
+
+    blocks.forEach(block => {
+        const text = block.querySelector('span').textContent.toLowerCase();
+        block.style.display = text.includes(input) ? 'flex' : 'none';
+    });
+}
+
 
 </script>
 
