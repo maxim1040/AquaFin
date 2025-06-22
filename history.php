@@ -83,11 +83,17 @@ $orders = $stmt->fetchAll();
             text-decoration: none;
             color: #007BFF;
         }
+        
     </style>
 </head>
 <body>
 
+<p style="text-align:center; margin-top: 40px;">
+    <a href="dashboard.php" style="color:#007BFF;">⬅ Terug naar hoofdmenu</a>
+</p>
+
 <h1>Bestelgeschiedenis</h1>
+
 
 <?php if (count($orders) > 0): ?>
 <table>
@@ -122,9 +128,7 @@ $orders = $stmt->fetchAll();
     <p>Je hebt nog geen bestellingen geplaatst.</p>
 <?php endif; ?>
 
-<p style="text-align:center; margin-top: 40px;">
-    <a href="dashboard.php" style="color:#007BFF;">⬅ Terug naar hoofdmenu</a>
-</p>
+
 
 </body>
 </html>

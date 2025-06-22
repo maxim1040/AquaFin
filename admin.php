@@ -70,9 +70,14 @@ $materials = $stmt->fetchAll();
         select {
             margin-top: 5px;
         }
+        
     </style>
 </head>
 <body>
+
+<p style="text-align:center; margin-top: 40px;">
+    <a href="dashboard.php" style="color:#007BFF; text-decoration:none;">⬅ Terug naar hoofdmenu</a>
+</p>
 
 <h1>Beheer Materialen</h1>
 
@@ -113,10 +118,6 @@ $materials = $stmt->fetchAll();
         </div>
     <?php endforeach; ?>
 </div>
-
-<p style="text-align:center; margin-top: 40px;">
-    <a href="dashboard.php" style="color:#007BFF; text-decoration:none;">⬅ Terug naar hoofdmenu</a>
-</p>
 
 </body>
 </html>

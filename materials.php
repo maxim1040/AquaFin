@@ -19,10 +19,14 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 <head>
 <meta charset="UTF-8">
 <title>Voorraad</title>
+<p style="margin-top: 40px;">
+  <a href="dashboard.php" style="color:#00aaff; text-decoration:none;">⬅ Terug naar hoofdmenu</a>
+</p>
+
 <style>
     body{
         font-family:sans-serif;
-        background:#1e1e1e;
+        background:#fff;
         color:#fff;
         margin:0;
         padding:20px;
@@ -46,6 +50,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         user-select:none;
     }
 
+    
+
     .material{
         width:850px;
         margin:0 auto;
@@ -56,6 +62,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         display:flex;
         justify-content:space-between;
         align-items:center;
+        border: 2px solid #000;      
+
     }
     .material input{width:60px;}
 
@@ -124,7 +132,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 <h1>Voorraad per categorie</h1>
 
 <input type="text" id="searchInput" placeholder="🔍 Zoek materiaal..." onkeyup="filterMaterials()"
-       style="width: 400px; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: none;">
+       style="width: 400px; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 2px solid #000;      
+        border-radius: 5px;         ">
 
 
 <?php foreach($cats as $cat => $items): ?>
@@ -162,9 +171,6 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 <button id="winkelmand-btn" onclick="toggleCart()">🛒</button>
 
-<p style="margin-top: 40px;">
-  <a href="dashboard.php" style="color:#00aaff; text-decoration:none;">⬅ Terug naar hoofdmenu</a>
-</p>
 
 <script>
 function toggle(id){

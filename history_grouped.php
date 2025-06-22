@@ -22,6 +22,9 @@ $rows = $stmt->fetchAll();
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
+
+    
+    <a href="dashboard.php">⬅ Terug naar dashboard</a>
     <title>Gegroepeerde Bestellingen</title>
     <style>
         body {
@@ -62,6 +65,7 @@ $rows = $stmt->fetchAll();
             color: #007BFF;
             text-decoration: none;
         }
+        
     </style>
 </head>
 <body>
@@ -87,7 +91,6 @@ $rows = $stmt->fetchAll();
     <p style="text-align:center;">Nog geen bestellingen geplaatst.</p>
 <?php endif; ?>
 
-<a href="dashboard.php">⬅ Terug naar dashboard</a>
 
 </body>
 </html>
