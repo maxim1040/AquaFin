@@ -248,13 +248,34 @@ function submitOrder(){
 
 function filterMaterials() {
     const input = document.getElementById('searchInput').value.toLowerCase();
-    const blocks = document.querySelectorAll('.material');
 
-    blocks.forEach(block => {
-        const text = block.querySelector('span').textContent.toLowerCase();
-        block.style.display = text.includes(input) ? 'flex' : 'none';
+    // Loop over alle categorie-divs
+    document.querySelectorAll('div[id]').forEach(catDiv => {
+        let visibleCount = 0;
+
+        // Loop over materialen in deze categorie
+        catDiv.querySelectorAll('.material').forEach(mat => {
+            const naam = mat.querySelector('span').textContent.toLowerCase();
+            if (naam.includes(input)) {
+                mat.style.display = 'flex';
+                visibleCount++;
+            } else {
+                mat.style.display = 'none';
+            }
+        });
+
+        // Toon categorie alleen als minstens 1 materiaal zichtbaar is
+        catDiv.style.display = visibleCount > 0 ? 'block' : 'none';
+    });
+
+    // Toon/verberg bijhorende <h2> titels
+    document.querySelectorAll('h2').forEach(h2 => {
+        const divId = h2.getAttribute('onclick').match(/'(.+?)'/)[1];
+        const relatedDiv = document.getElementById(divId);
+        h2.style.display = (relatedDiv && relatedDiv.style.display === 'block') ? 'block' : 'none';
     });
 }
+
 
 
 </script>
